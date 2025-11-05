@@ -30,9 +30,12 @@ fun ProductListScreen(
     mainViewModel: MainViewModel,
     cartViewModel: CartViewModel,
     cartItemCount: Int,
+    isDarkMode: Boolean, // <-- AÑADIDO
+    onToggleTheme: () -> Unit, // <-- AÑADIDO
     listViewModel: ProductListViewModel = viewModel(),
     onNavigateToCart: () -> Unit,
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    onNavigateToAboutUs: () -> Unit
 ) {
     val products by listViewModel.products.collectAsState()
     val searchQuery by listViewModel.searchQuery.collectAsState()
@@ -40,16 +43,18 @@ fun ProductListScreen(
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    // --- AÑADIDO: Para los filtros ---
     val categories = listViewModel.categories
     val selectedCategory by listViewModel.selectedCategory.collectAsState()
-    // --- FIN DE AÑADIDO ---
 
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
+            // --- MODIFICADO: Pasamos el estado del tema y la función para cambiarlo ---
             AppDrawer(
+                isDarkMode = isDarkMode, // <-- AÑADIDO
+                onToggleTheme = onToggleTheme, // <-- AÑADIDO
                 onProfileClick = onNavigateToProfile,
+                onAboutUsClick = onNavigateToAboutUs,
                 onCloseDrawer = { scope.launch { drawerState.close() } }
             )
         }
@@ -58,15 +63,13 @@ fun ProductListScreen(
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             topBar = {
                 TopAppBar(
-                    // --- MODIFICADO: Logo en lugar de texto ---
                     title = {
                         Image(
                             painter = painterResource(id = R.drawable.logo_huerto_hogar),
                             contentDescription = "Logo HuertoHogar",
-                            modifier = Modifier.height(32.dp) // Ajusta el alto
+                            modifier = Modifier.height(32.dp)
                         )
                     },
-                    // --- FIN DE MODIFICACIÓN ---
                     navigationIcon = {
                         IconButton(onClick = { scope.launch { drawerState.open() } }) {
                             Icon(Icons.Default.Menu, contentDescription = "Menú")
@@ -89,7 +92,6 @@ fun ProductListScreen(
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                // Barra de Búsqueda (sin cambios)
                 TextField(
                     value = searchQuery,
                     onValueChange = { listViewModel.onSearchQueryChanged(it) },
@@ -101,7 +103,6 @@ fun ProductListScreen(
                     singleLine = true
                 )
 
-                // --- AÑADIDO: Fila de Filtros por Categoría ---
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -114,13 +115,11 @@ fun ProductListScreen(
                         )
                     }
                 }
-                // --- FIN DE AÑADIDO ---
 
-                // Lista de Productos
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 8.dp), // Pequeño espacio
+                        .padding(top = 8.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {

@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment //
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -33,20 +34,30 @@ fun CartScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Mi Carrito") })
+            TopAppBar(
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.ShoppingCart,
+                            contentDescription = "Carrito"
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(" Mi Carrito")
+                    }
+                }
+            )
         },
         bottomBar = {
             AppBottomBar(
                 currentScreen = Screen.Cart,
                 cartItemCount = cartItemCount,
                 onNavigateToProducts = onNavigateToProducts,
-                onNavigateToCart = { /* Ya estamos aquí */ },
+                onNavigateToCart = { },
                 onNavigateToProfile = onNavigateToProfile
             )
         }
     ) { innerPadding ->
 
-        // --- MODIFICADO: Condición de Carrito Vacío ---
         if (cartItems.isEmpty()) {
             Box(
                 modifier = Modifier
@@ -69,7 +80,7 @@ fun CartScreen(
                 }
             }
         } else {
-            // Esto es lo que tenías antes
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -93,7 +104,7 @@ fun CartScreen(
                     }
                 }
 
-                // Total y botones
+
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -108,14 +119,14 @@ fun CartScreen(
                     }
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // --- AÑADIDO: Botón de Vaciar Carrito ---
+
                     OutlinedButton(
                         onClick = { cartViewModel.clearCart() },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("Vaciar Carrito")
                     }
-                    // --- FIN DE AÑADIDO ---
+
 
                     Spacer(modifier = Modifier.height(8.dp))
 

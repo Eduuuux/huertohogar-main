@@ -2,4 +2,11 @@
 <resources>
 
     <style name="Theme.Huertohogar" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Splash Screen Theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primaryGreen</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_huerto_hogar</item>
+        <item name="postSplashScreenTheme">@style/Theme.Huertohogar</item>
+    </style>
 </resources>

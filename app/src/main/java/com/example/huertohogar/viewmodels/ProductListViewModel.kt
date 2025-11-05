@@ -27,7 +27,7 @@ class ProductListViewModel : ViewModel() {
     val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
 
 
-    val categories = listOf("Todos", "Frutas Frescas", "Verduras Orgánicas", "Productos Orgánicos")
+    val categories = listOf("Todos", "Frutas Frescas", "Verduras Orgánicas", "Productos Orgánicos","Productos Lacteos")
 
 
     init {

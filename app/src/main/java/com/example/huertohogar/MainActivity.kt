@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.example.huertohogar.navigation.AppNavHost
 import com.example.huertohogar.navigation.NavigationEvent
@@ -21,9 +23,14 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // --- CORREGIDO: La pantalla de carga se instala ANTES de super.onCreate() ---
+        installSplashScreen()
         super.onCreate(savedInstanceState)
+
         setContent {
-            HuertoHogarTheme {
+            val isDarkMode by mainViewModel.isDarkMode
+
+            HuertoHogarTheme(darkTheme = isDarkMode) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

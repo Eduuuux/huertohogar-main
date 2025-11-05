@@ -44,6 +44,26 @@ object ProductRepository {
             imageUrl = "zanahorias_organicas"
         ),
         Product(
+            id = "VR001",
+            name = "Espinacas Frescas",
+            description = "Espinacas frescas y nutritivas, perfectas para ensaladas y batidos verdes.",
+            price = 700.0,
+            unit = "por kilo",
+            stock = 80.0,
+            category = "Verduras Orgánicas",
+            imageUrl = "espinacas_frescas"
+        ),
+        Product(
+            id = "VR003",
+            name = "Pimientos Tricolores",
+            description = "Pimientos rojos, amarillos y verdes, ideales para salteados y platos coloridos.",
+            price = 1500.0,
+            unit = "por kilo",
+            stock = 120.0,
+            category = "Verduras Orgánicas",
+            imageUrl = "pimientos_tricolor"
+        ),
+        Product(
             id = "PO001",
             name = "Miel Orgánica",
             description = "Miel pura y orgánica producida por apicultores locales.",
@@ -52,7 +72,30 @@ object ProductRepository {
             stock = 50.0,
             category = "Productos Orgánicos",
             imageUrl = "miel_organica"
-        )
+        ),
+        Product(
+            id = "PO003",
+            name = "Quinoa Organica",
+            description = "Quinoa orgánica cultivada sin toxinas ni químicos dañinos como herbicidas y pesticidas",
+            price = 4500.0,
+            unit = "por paquete 400g",
+            stock = 40.0,
+            category = "Productos Orgánicos",
+            imageUrl = "quinoa_organica"
+        ),
+        Product(
+            id = "PL003",
+            name = "Leche Entera",
+            description = "La leche entera es la leche de vaca que conserva su contenido natural de grasa",
+            price = 12000.0,
+            unit = "por caja 1L",
+            stock = 40.0,
+            category = "Productos Lacteos",
+            imageUrl = "leche_entera"
+        ),
+
+
+
         // ...Añadir el resto de productos del PDF
     )
 
